@@ -38,7 +38,7 @@ insert into products(name, price, c_id) values
 -- SELECT CATEGORIES
 select
 	c.name name,
-	count(p.c_id) count_of_products
+	count(p.c_id)::int count_of_products
 from products p
 join categories c on c.id = p.c_id
 group by c.id
