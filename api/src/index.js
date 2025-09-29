@@ -35,8 +35,6 @@ server.get( "/products/:cid", async ( req, res ) => {
 	const categoryID = parseInt( req.params.cid || 0 ) || 0
 	const page = parseInt( req.query.page || 1 ) || 1
 
-	console.log( page )
-
 	const query = `
 		select
 			distinct( name ),

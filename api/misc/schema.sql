@@ -46,6 +46,9 @@ group by c.id
 
 -- SELECT ALL PRODUCTS
 select distinct(name), price, img_url from products
-where c_id = 1
-limit 10 offset 20;
+limit 2 offset ( 1 - 0 ) * 2;
 ;
+
+-- ( p - 1 ) * ipp
+-- ( 3 - 1 ) * 10
+-- ceil( C / ipp )
