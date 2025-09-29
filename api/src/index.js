@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 
+import Auth from "#routes/auth.js"
 import Common from "#routes/common.js"
 import Categories from "#routes/categories.js"
 import Products from "#routes/products.js"
@@ -12,6 +13,7 @@ const server = express()
 server.use( cors() )
 server.use( express.json() )
 server.use( "/", Common )
+server.use( "/auth", Auth )
 server.use( "/categories", Categories )
 server.use( "/products", Products )
 
