@@ -1,11 +1,13 @@
-import fs from "fs"
+import { promises as fs } from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import { executeQuery } from "#utils/db.js"
 import { Client } from "pg"
 
+// CONSTANTS
 const __dirname = path.dirname( fileURLToPath( import.meta.url ) )
 
+// DB CLIENT (POSTGRES)
 let client = new Client( {
 	user: "postgres",
 	password: "math",
@@ -14,49 +16,52 @@ let client = new Client( {
 	database: "postgres",
 } )
 
-try {
+// INIT
+await init()
 
-	await client.connect()
+async function init() {
 
-	// CLEANUP
-	await client.query( `drop database if exists e_commerce_app` )
-
-	// CREATE DATABASE
-	await client.query( `create database e_commerce_app` )
-
-	client.end()
-
-	// NEW CONNECTION
-	client = new Client( {
-		user: "postgres",
-		password: "math",
-		host: "localhost",
-		port: 5432,
-		database: "e_commerce_app",
-	} )
-
-	fs.readFile( path.join( __dirname, "schema.sql" ), "utf8", async ( err, schemaSQL ) => {
+	try {
 
 		await client.connect()
 
-		try {
+		// CLEANUP
+		await client.query( `drop database if exists e_commerce_app` )
 
-			if ( err === null ) {
+		// CREATE DATABASE
+		await client.query( `create database e_commerce_app` )
 
-				await client.query( schemaSQL )
-			}
-		}
-		finally {
+		console.log( "Database created!" )
 
-			client.end()
+		// New connection
+		client = new Client( {
+			user: "postgres",
+			password: "math",
+			host: "localhost",
+			port: 5432,
+			database: "e_commerce_app",
+		} )
 
-			console.log( "Created!" )
+		await client.connect()
 
-			process.exit( 0 )
-		}
-	} )
-}
-catch( err ) {
+		// Create scheme
+		const schemeSQL = await fs.readFile( path.join( __dirname, "schema.sql" ), "utf8" )
+		await client.query( schemeSQL )
+		console.log( "Tables created!" )
 
-	console.log( err )
+		// Create scheme
+		const dataSQL = await fs.readFile( path.join( __dirname, "data.sql" ), "utf8" )
+		await client.query( dataSQL )
+		console.log( "Data inserted!" )
+	}
+	catch( error ) {
+
+		console.error( error )
+		process.exit( 1 )
+	}
+	finally {
+
+		client.end()
+		process.exit( 0 )
+	}
 }

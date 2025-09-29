@@ -8,9 +8,9 @@ router.get( "/", async ( _, res ) => {
 	const query = `
 	select
 		c.name name,
-		count(p.c_id)::int count_of_products
+		count(p.category_id)::int count_of_products
 	from products p
-	join categories c on c.id = p.c_id
+	join categories c on c.id = p.category_id
 	group by c.id`
 
 	try {

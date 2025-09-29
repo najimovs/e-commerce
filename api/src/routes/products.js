@@ -1,11 +1,12 @@
 import { Router } from "express"
 import { executeQuery } from "#utils/db.js"
+import * as CONFIG from "#conf"
 
 const router = Router()
 
-router.get( "/:cid", async ( _, res ) => {
+router.get( "/:categoryID", async ( req, res ) => {
 
-	const categoryID = parseInt( req.params.cid || 0 ) || 0
+	const categoryID = parseInt( req.params.categoryID || 0 ) || 0
 	const page = parseInt( req.query.page || 1 ) || 1
 
 	const query = `
@@ -14,7 +15,7 @@ router.get( "/:cid", async ( _, res ) => {
 			price,
 			img_url
 		from products
-		where c_id = $1
+		where category_id = $1
 		limit $2 offset $3;
 	`
 
