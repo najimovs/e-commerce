@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"project-init": "node --env-file=src/.sample-env src/misc/init.js",
+		"idb": "node --env-file=src/.sample-env src/misc/init.js",
 		"dev": "node --env-file=src/.env --watch src/index.js",
 		"start": "node --env-file=src/.env src/index.js"
 	},

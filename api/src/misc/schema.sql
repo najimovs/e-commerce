@@ -4,7 +4,7 @@ create table users (
 	password varchar(255) not null
 );
 
-create table permissons (
+create table permissions (
 	id serial primary key,
 	rights int not null,
 	user_id int references users( id ) on delete cascade on update cascade

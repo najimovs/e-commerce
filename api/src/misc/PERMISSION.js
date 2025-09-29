@@ -1,0 +1,13 @@
+/*
+	CATEGORIES
+
+		1 = CREATE
+		2 = UPDATE
+		3 = DELETE
+
+	PRODUCTS
+
+		4 = CREATE
+		5 = UPDATE
+		6 = DELETE
+*/

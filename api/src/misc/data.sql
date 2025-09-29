@@ -1,5 +1,13 @@
 insert into users(username, password) values ('root', '$2b$10$gCLIQCtQOsSGn8LeiE0gsubZqWC9F2wS8652pSPQWUeUz397n.4EK');
 
+insert into permissions (rights, user_id) values (1, 1);
+insert into permissions (rights, user_id) values (2, 1);
+insert into permissions (rights, user_id) values (3, 1);
+
+insert into permissions (rights, user_id) values (4, 1);
+insert into permissions (rights, user_id) values (5, 1);
+insert into permissions (rights, user_id) values (6, 1);
+
 insert into categories (name) values
 ('Electronics'),
 ('Fashion'),
